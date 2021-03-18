@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Art of Wuxia Dynamic Character Sheet</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    </head>
+    <body>
+        <div class="container">
+            <p>Character Rank: <input id="rank" type="number" min="1" max="6" onchange="calculateBaseScores()"> </p>
+            <p id="CharacterPoints" onchange="calculateBaseScores()"></p>
+            <p id="cultivation" onchange="calculateBaseScores()"></p>
+            <button onclick="rollDice()">Roll</button>
+            <p id="result"></p>
+            <select id="primary">
+                <option value="alchemist">Alchemist</option>
+                <option value="detective">Detective</option>
+                <option value="diviner">Diviner</option>
+                <option value="leader">Leader</option>
+                <option name="mystic">Mystic</option>
+                <option value="scout">Scout</option>
+                <option value="scholar">Scholar</option>
+                <option value="sorcerer">Sorcerer</option>
+                <option value="thief">Thief</option>
+            </select>
+            <select id="secondary">
+                <option value="alchemist">Alchemist</option>
+                <option value="detective">Detective</option>
+                <option value="diviner">Diviner</option>
+                <option value="leader">Leader</option>
+                <option name="mystic">Mystic</option>
+                <option value="scout">Scout</option>
+                <option value="scholar">Scholar</option>
+                <option value="sorcerer">Sorcerer</option>
+                <option value="thief">Thief</option>
+
+            </select>
+
+            <table class="table">
+                <tr>
+                    <th>Stat</th>
+                    <th>Score</th>
+                    <th>SkillsBase</th>
+                </tr>
+                <tr>
+                    <td>STR</td>
+                    <td><input type="number" id="str" min="0" placeholder="30" onchange="calculateBaseScores()"></td>
+                    <td><input type="number" id="strBase" readonly></td>
+                </tr>
+                <tr>
+                    <td>DEX</td>
+                    <td><input type="number" id="dex" min="0" placeholder="30" onchange="calculateBaseScores()"></td>
+                    <td><input type="number" id="dexBase" readonly></td>
+                </tr>
+                <tr>
+                    <td>LOG</td>
+                    <td><input type="number" id="log" min="0" placeholder="30" onchange="calculateBaseScores()"></td>
+                    <td><input type="number" id="logBase" readonly></td>
+                </tr>
+                <tr>
+                    <td>WIL</td>
+                    <td><input type="number" id="wil" min="0" placeholder="30" onchange="calculateBaseScores()"></td>
+                    <td><input type="number" id="wilBase" readonly></td>
+            </table>
+        </div>
+
+
+
+        <div class="row">
+
+            <table class="table">
+                <tr>
+                    <td>Initative: <input type="number" id="initative" readonly></td>
+                </tr>
+                <tr>
+                    <td>Movement<input type="number" id="movement" min="8" max="3" readonly></td>
+                </tr>
+                <tr>
+                    <td>currentBP<input type="number" id="currentBP"></td>
+                    <td>maxBP<input type="number" id="maxBP" readonly></td>
+                </tr>
+                <td>DBMelee<input type="number" id="meleeDB" readonly></td>
+                <td>DBRanged<input type="number" id="rangedDB" readonly></td>
+                <tr>
+                    <td>current<input type="number" id="currentQi"></td>
+                    <td>Qi<input type="number" id="maxQi" readonly></td>
+                </tr>
+            </table>
+        </div>
+        <div class="container" id="skillsTable">SkillsTable
+            <table>
+                <thead>
+                    <tr>
+                        <th>Skills</th>
+                        <th>Base</th>
+                        <th>Level</th>
+                        <th>P/S</th>
+                        <th>Score</th>
+                        <th colspan="2">Notes</th>                            
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Alchemist</td>
+                        <td id="alchbas">LOG/2</td>
+                        <td>
+                            <select id="attr_alchemist" onchange="calculateBaseScores()">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>   
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>   
+                                <option value="6">6</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select>
+                                <option value="20">P</option>
+                                <option value="10">S</option>   
+                                <option>0</option>
+                            </select>
+                        </td>
+                        <td></td>
+                        <td id="alchScore"></td>
+                        <td>Alchemy, Diagnose, Wound Mending, Surgery</td>
+                    </tr>
+                    <tr>
+                        <td>Detective</td>
+                        <td id="detebas">LOG/2</td>
+                        <td><select id="attr_detective" onchange="calculateBaseScores()">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>   
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>   
+                                <option value="6">6</option>
+                            </select></td>
+                        <td>
+                            <select>
+                                <option value="20">P</option>
+                                <option value="10">S</option>   
+                                <option value="0">0</option>
+                            </select>
+                        </td>
+                        <td></td>
+                        <td id="deteScore"></td>
+                        <td>Detect Clues, Interrogation, Shadowing and Trailing, Connections</td>
+                    </tr>
+                    <tr>
+                        <td>Diviner</td>
+                        <td id="divibas">LOG/2</td>
+                        <td><select id="attr_diviner" onchange="calculateBaseScores()">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>   
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>   
+                                <option value="6">6</option>
+                            </select></td>
+                        <td>
+                            <select>
+                                <option value="20">P</option>
+                                <option value="10">S</option>   
+                                <option value="0">0</option>
+                            </select>
+                        </td>
+                        <td></td>
+                        <td id="diviScore"></td>
+                        <td>Hunch, Foresight, Reading, Identify Convergence Point</td>
+                    </tr>
+                    <tr>
+                        <td>Leader</td>
+                        <td id="leadbas">WIL/2</td>
+                        <td><select id="attr_leader" onchange="calculateBaseScores()">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>   
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>   
+                                <option value="6">6</option>
+                            </select></td>
+                        <td>
+                            <select>
+                                <option value="20">P</option>
+                                <option value="10">S</option>   
+                                <option value="0">0</option>
+                            </select>
+                        </td>
+                        <td></td>
+                        <td id="leadScore"></td>
+                        <td>Battle Commander, Guardian, Leader, Warlord</td>
+                    </tr>
+                    <tr>
+                        <td>Mystic</td>
+                        <td id="mystbas">WIL/2</td>
+                        <td><select id="attr_mystic" onchange="calculateBaseScores()">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>   
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>   
+                                <option value="6">6</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select>
+                                <option value="20">P</option>
+                                <option value="10">S</option>   
+                                <option value="0">0</option>
+                            </select>
+                        </td>
+                        <td></td>
+                        <td id="mystScore"></td>
+                        <td>Qi Focus, Harmony Sense, Spirit Sword, Wards</td>
+                    </tr>
+                    <tr>
+                        <td>Scholar</td>
+                        <td id="schobas">LOG/2</td>
+                        <td><select id="attr_scholar" onchange="calculateBaseScores()">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>   
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>   
+                                <option value="6">6</option>
+                            </select></td>
+                        <td>
+                            <select>
+                                <option value="20">P</option>
+                                <option value="10">S</option>   
+                                <option value="0">0</option>
+                            </select>
+                        </td>
+                        <td></td>
+                        <td id="schoScore"></td>
+                        <td>Diplomat, High Scholar, Historian, Signs & Portents</td>
+                    </tr>
+                    <tr>
+                        <td>Scout</td>
+                        <td id="scoubas">LOG/2</td>
+                        <td><select id="attr_scout" onchange="calculateBaseScores()">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>   
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>   
+                                <option value="6">6</option>
+                            </select></td>
+                        <td>
+                            <select>
+                                <option value="20">P</option>
+                                <option value="10">S</option>   
+                                <option value="0">0</option>
+                            </select>
+                        </td>
+                        <td></td>
+                        <td id="scouScore"></td>
+                        <td>Animal Handling, Navigation, Stalking, Survival</td>
+                    </tr>
+                    <tr>
+                        <td>Sorcerer</td>
+                        <td id="sorcbas">WIL/2</td>
+                        <td><select id="attr_sorcerer" onchange="calculateBaseScores()">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>   
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>   
+                                <option value="6">6</option>
+                            </select></td>
+                        <td>
+                            <select>
+                                <option value="20">P</option>
+                                <option value="10">S</option>   
+                                <option value="0">0</option>
+                            </select>
+                        </td>
+                        <td></td>
+                        <td id="sorcScore"></td>
+                        <td>High Sorcery, Low Sorcery, Raw Talent, Enchantment</td>
+                    </tr>
+                    <tr>
+                        <td>Thief</td>
+                        <td id="thiebas">DEX/2</td>
+                        <td><select id="attr_thief" onchange="calculateBaseScores()">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>   
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>   
+                                <option value="6">6</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select>
+                                <option value="20">P</option>
+                                <option value="10">S</option>   
+                                <option value="0">0</option>
+                            </select>
+                        </td>
+                        <td></td>
+                        <td id="thieScore"></td>
+                        <td>Deception, Security Systems, Sleight of Hand, Stealth</td>
+                    </tr>
+                </tbody>
+
+
+            </table>
+
+        </div>
+
+
+        <script type="text/javascript" src="dynCS.js"></script>
+    </body>
+</html>
