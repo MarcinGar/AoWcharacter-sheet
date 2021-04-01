@@ -13,17 +13,42 @@ function calculateBaseScores() {
     var wil = document.getElementById("wil").value;
     var wilBase = Math.ceil(wil / 2);
     document.getElementById("wilBase").value = wilBase;
-    document.getElementById("initative").value = 1;
+    var initative = 1;
+    if (dex > 65 && log > 65) {
+        initative = initative + 2;
+    } else if (dex > 65 || log > 65) {
+        initative = initative + 1;
+    }
+    document.getElementById("initative").value = initative;
+
     var movement = 8;
+    if (str > 65 && dex > 65) {
+        movement = movement + 2;
+    } else if (str > 65 || dex > 65) {
+        movement = movement + 1;
+    }
     document.getElementById("movement").value = movement;
     var rank = document.getElementById("rank").value;
     var maxBP = strBase + (rank - 1) * 10;
     document.getElementById("maxBP").value = maxBP;
     var meleeDB = Math.ceil((str - 60) / 5);
+    if (meleeDB < 0) {
+        meleeDB = 0;
+    }
     document.getElementById("meleeDB").value = meleeDB;
     var rangedDB = Math.ceil((dex - 60) / 5);
+    if (rangedDB < 0) {
+        rangedDB = 0;
+    }
     document.getElementById("rangedDB").value = rangedDB;
-    document.getElementById("maxQi").value = 3;
+    var maxQi = 3;
+    if (mystLev >= 4) {
+        maxQi = maxQi + 2;
+    } else if (mystLev >= 1) {
+        maxQi = maxQi + 1;
+    }
+    document.getElementById("maxQi").value = maxQi;
+
     var alchScore = logBase;
     var alchLev = document.getElementById("attr_alchemist").value;
     document.getElementById("alchScore").innerHTML = alchScore + alchLev * 10;
@@ -38,6 +63,7 @@ function calculateBaseScores() {
     document.getElementById("leadScore").innerHTML = leadBase + leadLev * 10;
     var mystScore = wilBase;
     var mystLev = document.getElementById("attr_mystic").value;
+
     document.getElementById("mystScore").innerHTML = mystScore + mystLev * 10;
     var scouScore = logBase;
     var scouLev = document.getElementById("attr_scout").value;
@@ -66,6 +92,13 @@ function calculateBaseScores() {
     } else {
         this.document.getElementById("cultivation").innerHTML = "0";
     }
+    var maxQi = 3;
+    if (mystLev >= 4) {
+        maxQi = maxQi + 2;
+    } else if (mystLev >= 1) {
+        maxQi = maxQi + 1;
+    }
+    document.getElementById("maxQi").value = maxQi;
 
 }
 
@@ -73,14 +106,20 @@ function rollDice() {
     var random = 1 * Math.floor(Math.random() * (99));
     //var integral = Math.ceil(Math.random() * (10));
     var result = random;
-    if(result%11===0 && result>10 || result===100) {
+    if (result % 11 === 0 && result > 10 || result === 100) {
         var critical = result;
         document.getElementById("result").innerHTML = "You rolled a critical " + critical + "!!!.";
-    }
-    else {
+    } else {
         document.getElementById("result").innerHTML = "You rolled " + result;
     }
 }
+function rollInitative() {
+    const init = this.initative;
+    var initResults = array();
+    for (i = 0; i <= init - 1; i++) {
+        this.initresults[i] = Math.floor(Math.random() * (9) + 1);
+    }
+    }
 
 
 
